@@ -1,9 +1,8 @@
 """
-LLM Client — Single wrapper around the Experiential gateway.
+LLM Client — Single wrapper around the local Ollama gateway.
 
-Per SOLUTION.md §14: uses model ``gpt-5.6-luna`` via the Experiential gateway
-(``base_url=https://api.experientiallabs.ai/v1``, OpenAI-compatible,
-``EXPLABS_API_KEY`` env var).
+Uses Ollama's OpenAI-compatible API with the ``gemma2:9b`` model
+(``base_url=http://localhost:11434/v1``).
 
 Provides two call types:
   1. ``extract`` — structured extraction via ``with_structured_output``
@@ -17,11 +16,10 @@ All calls are logged through the shared ``UsageTracker`` instance.
 from __future__ import annotations
 
 import logging
-import os
 from typing import Any, Dict, List, Optional, Tuple, Type, TypeVar
 
 from langchain_core.messages import BaseMessage
-from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
 from pydantic import BaseModel
 
 from .usage_tracker import UsageTracker
@@ -36,30 +34,16 @@ PROMPT_VERSION = "v1"
 
 class LLMClient:
     """
-    Singleton-style LLM client wrapping the Experiential Labs gateway.
-
-    Uses LangChain's ``ChatOpenAI`` with a custom ``base_url`` so it is
-    OpenAI-compatible while routing through the Experiential endpoint.
+    Singleton-style LLM client wrapping the local Ollama gateway.
     """
 
     def __init__(
         self,
-        model: str = "deepseek-v4.1-flash",
-        base_url: str = "https://api.experientiallabs.ai/v1",
-        api_key: Optional[str] = None,
+        model: str = "gemma2:9b",
         temperature: float = 0.0,
     ) -> None:
-        resolved_key = api_key or os.environ.get("EXPLABS_API_KEY", "")
-        if not resolved_key:
-            raise ValueError(
-                "EXPLABS_API_KEY environment variable is not set "
-                "and no api_key was provided."
-            )
-
-        self.llm = ChatOpenAI(
+        self.llm = ChatOllama(
             model=model,
-            base_url=base_url,
-            api_key=resolved_key,
             temperature=temperature,
         )
         self._cache: Dict[Tuple[str, str], Any] = {}

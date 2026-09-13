@@ -14,6 +14,7 @@ env/
 *.log
 log.txt
 dataset/output.csv
+tmp/
 
 # Local tooling and OS files
 .pytest_cache/

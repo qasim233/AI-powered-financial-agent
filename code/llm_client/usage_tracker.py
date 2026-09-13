@@ -44,8 +44,8 @@ class UsageTracker:
 
     def __init__(
         self,
-        model: str = "gpt-5.6-luna",
-        provider: str = "Experiential Labs",
+        model: str = "gemma2:9b",
+        provider: str = "Ollama",
     ) -> None:
         self.model = model
         self.provider = provider
@@ -135,7 +135,7 @@ class UsageTracker:
             "|-------|-------|",
             f"| Provider | {self.provider} |",
             f"| Model | {self.model} |",
-            "| Base URL | https://api.experientiallabs.ai/v1 |",
+            "| Base URL | http://localhost:11434/v1 |",
             "",
             "## Call Summary",
             "",
@@ -162,8 +162,8 @@ class UsageTracker:
             f"| Estimated Per-Request Cost (list price) | ${est_per_request:.6f} |",
             "| Actual Cost (free-tier gateway) | $0.00 |",
             "",
-            "> Note: The Experiential Labs gateway provides free-tier access.",
-            "> List-price estimates use approximate per-1K-token rates for reference only.",
+            "> Note: Ollama runs locally, so these are list-price reference estimates only.",
+            "> Actual runtime cost depends on your local hardware and setup.",
             "",
         ]
 
