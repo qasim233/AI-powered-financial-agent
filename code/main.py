@@ -98,7 +98,7 @@ class BuyOrWaitPipeline:
 
         # LLM & OCR
         self.llm_client = None
-        if self.enable_llm and os.environ.get("EXPLABS_API_KEY"):
+        if self.enable_llm:
             try:
                 self.llm_client = LLMClient()
                 logger.info("LLMClient initialized with model %s", self.llm_client.llm.model_name)

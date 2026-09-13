@@ -14,9 +14,8 @@ producing `amount_safe_to_pay`, `affordability_status`, `recommended_payment_met
 Every number, date, and ranking decision is produced by deterministic Python code,
 so the system is reproducible, unit-testable, and auditable.
 
-**Model**: `gpt-5.6-luna` via the Experiential gateway
-(`base_url=https://api.experientiallabs.ai/v1`, OpenAI-compatible client,
-`EXPLABS_API_KEY` env var).
+**Model**: `gemma2:9b` via local Ollama
+(`base_url=http://localhost:11434/v1`, Ollama client, no API key required).
 
 **OCR**: EasyOCR for all images (no direct multimodal LLM calls on images — OCR text is
 fed into the same extraction prompt used for messages).
@@ -341,8 +340,7 @@ the whole run, and never emit an internally-inconsistent row.
 
 ## 14. LLM Client, Caching, Usage Tracking
 
-- Single client wrapper around the Experiential gateway (OpenAI-compatible), model
-  `gpt-5.6-luna`.
+- Single client wrapper around local Ollama, model `gemma2:9b`.
 - Cache extraction results keyed by `(message_id or image_id, prompt_version)` so
   reruns don't reprocess unchanged inputs.
 - Every call logs: timestamp, call type (extraction/explanation), input tokens, output

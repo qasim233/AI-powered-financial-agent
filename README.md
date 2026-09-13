@@ -50,7 +50,7 @@ The system analyzes personal financial profiles, transaction histories, multi-cu
 - **Operating System**: Linux / macOS / Windows WSL
 - **Python Runtime**: Python 3.12 (recommended)
 - **Virtual Environment Tool**: `venv` or `conda`
-- **Optional API Key**: `EXPLABS_API_KEY` for LLM structured extraction and explanation generation. *(Note: The system contains a complete deterministic fallback engine and runs out of the box even without an API key).*
+- **Local LLM Setup**: Ollama with the `gemma2:9b` model for structured extraction and explanation generation. *(Note: The system contains a complete deterministic fallback engine and runs out of the box even if Ollama is unavailable.)*
 
 ### Setup Instructions
 
@@ -68,8 +68,8 @@ pip install --upgrade pip
 pip install -r code/requirements.txt
 
 # 4. (Optional) Configure environment variables
-# Copy template or export directly:
-export EXPLABS_API_KEY="your-api-key-here"
+# Start Ollama locally and pull the model:
+ollama pull gemma2:9b
 ```
 
 ### Execution Commands
@@ -219,7 +219,7 @@ stateDiagram-v2
 
 ### Component 0: LLM Client & Usage Tracker
 * **Location**: `code/llm_client/client.py`, `code/llm_client/usage_tracker.py`
-* **Purpose**: Manages OpenAI-compatible LLM interactions via LangChain `ChatOpenAI` targeting the Experiential Labs gateway (`https://api.experientiallabs.ai/v1`, model `gpt-5.6-luna`).
+* **Purpose**: Manages local LLM interactions via LangChain `ChatOllama` targeting Ollama (`http://localhost:11434/v1`, model `gemma2:9b`).
 * **Design Decisions**:
   - **Structured Outputs via Schema**: Uses LangChain's `.with_structured_output(Claim, include_raw=True)` to guarantee typed Pydantic instances while extracting raw token usage directly from message metadata.
   - **In-Memory Caching**: Caches structured extraction responses by `(source_id, prompt_version)` to eliminate duplicate API calls for users with shared messages.

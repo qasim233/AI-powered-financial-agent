@@ -37,8 +37,10 @@ source .venv/bin/activate
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Configure API Key (optional — system runs deterministically if key is omitted)
-export EXPLABS_API_KEY="your_api_key_here"
+# 3. Start Ollama locally and pull the model
+ollama pull gemma2:9b
+
+# The pipeline will use the local Ollama server at http://localhost:11434
 ```
 
 ## Running the Pipeline

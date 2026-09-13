@@ -12,7 +12,7 @@
 |----------|--------|-----------|
 | Orchestration framework | LangGraph `StateGraph` | User mandated LangGraph; SOLUTION.md's pipeline maps to a linear graph |
 | LLM abstraction | LangChain `ChatOpenAI` | User mandated LangChain; native OpenAI-compatible wrapper |
-| Model | `gpt-5.6-luna` via Experiential gateway | SOLUTION.md §14 |
+| Model | `gemma2:9b` via local Ollama | code/llm_client/client.py |
 | OCR | EasyOCR | SOLUTION.md §5 |
 | Data handling | pandas + csv stdlib | For CSV loading |
 | Schemas | Pydantic v2 | For structured LLM output + data models |
