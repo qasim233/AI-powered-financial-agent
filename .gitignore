@@ -1,0 +1,23 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local environments and secrets
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Generated logs and evaluation output
+*.log
+log.txt
+dataset/output.csv
+
+# Local tooling and OS files
+.pytest_cache/
+.mypy_cache/
+.coverage
+.DS_Store
+.vscode/
